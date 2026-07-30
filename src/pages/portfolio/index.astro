@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Obtiene todos los proyectos y los ordena por fecha
+const allProjects = await getCollection('portfolio');
+const sortedProjects = allProjects.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+
+<Layout title="Nuestro Portafolio" description="Explora nuestros casos de éxito y proyectos de desarrollo web.">
+  <h1 class="text-4xl font-bold mb-10">Casos de Éxito</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {sortedProjects.map((project) => (
+      <a href={`/portfolio/${project.id}`} class="group block bg-zinc-900/50 border border-zinc-800 rounded-xl p-6 hover:bg-zinc-900 hover:border-zinc-700 transition-all">
+        <h2 class="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{project.data.title}</h2>
+        <p class="text-slate-400 mb-4">{project.data.description}</p>
+        <div class="flex flex-wrap gap-2">
+          {project.data.technologies.map((tech) => (
+            <span class="text-xs bg-zinc-950 border border-zinc-800 text-zinc-400 px-2 py-1 rounded">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>

@@ -1,11 +1,58 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Inicio">
+	<section class="py-20 md:py-32 flex flex-col items-center text-center">
+		<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+			Desarrollo de Software <br> 
+			<span class="text-blue-500">a Medida</span>
+		</h1>
+		<p class="text-xl text-slate-300 max-w-2xl mb-10">
+			Transformamos ideas en productos digitales escalables.
+		</p>
+		<div class="flex gap-4">
+			<a href="/portfolio" class="bg-slate-800 border border-slate-700 px-8 py-3 rounded-lg font-bold hover:bg-slate-700 transition-colors">
+				Ver Proyectos
+			</a>
+			<a href="#equipo" class="text-zinc-300 px-8 py-3 rounded-lg font-bold hover:text-white transition-colors">
+				Conocer al equipo
+			</a>
+		</div>
+	</section>
+
+	<section class="py-16 border-t border-slate-800">
+		<h2 class="text-3xl font-bold mb-8 text-center">Nuestro Stack Tecnológico</h2>
+		<!-- src/pages/index.astro (Línea ~25) -->
+<div class="flex flex-wrap justify-center gap-4">
+    {['Next.js', 'Node.js', 'SwiftUI', 'SQLite', 'Tailwind CSS', 'Git'].map((tech) => (
+        <span class="bg-slate-800 px-4 py-2 rounded-full text-slate-300 font-medium hover:bg-slate-700 cursor-default transition-colors">
+            {tech}
+        </span>
+    ))}
+</div>
+	</section>
+	<section id="equipo" class="py-20 border-t border-zinc-800/50 scroll-mt-20">
+		<div class="max-w-4xl mx-auto">
+			<h2 class="text-3xl font-bold mb-10 text-zinc-100 text-center">Quiénes Somos</h2>
+			
+			<div class="bg-zinc-900/40 border border-zinc-800/50 p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center md:items-start">
+				<!-- Círculo para tu foto -->
+				<div class="w-32 h-32 bg-zinc-800 rounded-full flex-shrink-0 border-2 border-zinc-700 overflow-hidden">
+					<img src="/perfil.png" alt="Foto de perfil" class="w-full h-full object-cover" />
+				</div>
+				
+				<div>
+					<h3 class="text-2xl font-bold text-zinc-200 mb-1">Juansen</h3>
+					<p class="text-zinc-400 font-medium mb-4">Desarrollador de Software & Diseñador Gráfico</p>
+					<p class="text-zinc-400 leading-relaxed text-sm mb-4">
+						Radicado en Argentina, combinando el desarrollo técnico con el diseño estratégico. La experiencia abarca desde el código puro (Next.js, Node.js) hasta la producción visual integral, incluyendo herramientas de diseño, edición y capturas aéreas.
+					</p>
+                    <p class="text-zinc-400 leading-relaxed text-sm">
+                        El enfoque es simple: construir productos digitales que no solo funcionen a la perfección con arquitecturas modernas, sino que también comuniquen el mensaje correcto.
+                    </p>
+				</div>
+			</div>
+		</div>
+	</section>
 </Layout>

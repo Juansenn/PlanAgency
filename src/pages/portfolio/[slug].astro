@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Esta función le dice a Astro qué rutas estáticas debe construir
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('portfolio');
+  return projectEntries.map(entry => ({
+    params: { slug: entry.id }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+// Usamos la nueva herramienta 'render' pasándole nuestro archivo
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} | Portafolio`} description={entry.data.description}>
+  <article class="max-w-3xl mx-auto py-10">
+    <a href="/portfolio" class="text-blue-400 hover:underline mb-8 inline-block">&larr; Volver al portafolio</a>
+    
+    <header class="mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{entry.data.title}</h1>
+      <p class="text-xl text-slate-400 mb-6">{entry.data.description}</p>
+      
+      <div class="flex flex-wrap gap-x-8 gap-y-4 text-sm bg-slate-800/50 p-4 rounded-lg border border-slate-700">
+        <div>
+          <span class="block text-slate-500 uppercase font-semibold mb-1">Cliente</span>
+          <span class="font-medium">{entry.data.client}</span>
+        </div>
+        <div>
+          <span class="block text-slate-500 uppercase font-semibold mb-1">Tecnologías</span>
+          <div class="flex gap-2">
+            {entry.data.technologies.map(tech => (
+              <span>{tech}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- La clase 'prose' de Tailwind Typography es ideal aquí, pero para no requerir plugins extra, usamos estilos básicos -->
+    <div class="prose prose-invert prose-blue max-w-none prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-ul:list-disc prose-ul:pl-5 prose-li:mb-2 text-slate-300">
+      <Content />
+    </div>
+  </article>
+</Layout>
